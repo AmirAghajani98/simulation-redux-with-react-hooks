@@ -3,7 +3,7 @@
 import React from 'react';
 import { useStore } from '../store/Store';
 
-const BookingList = () => {
+export function BookingList() {
   const [state] = useStore();
   const { bookings } = state;
   const formStyle = {
@@ -27,16 +27,16 @@ const BookingList = () => {
     <>
       <div key={item.id}>
         <div style={formStyle.formControl}>
-          <b>Guest name:</b> {item.name}
+          <b>Name:</b> {item.name}
         </div>
         <div style={formStyle.formControl}>
-          <b>Number of Contact:</b> {item.numberOfContact}
+          <b>Number of Contact:</b> {item.number}
         </div>
         <div style={formStyle.formControl}>
-          <b>Number of Guests:</b> {item.numberOfPeople}
+          <b>prices:</b> {item.price}
         </div>
         <div style={formStyle.formControl}>
-          <b>Date and Time:</b> {new Date(item.dateTime).toString()}
+          <b>Date:</b> {new Date(item.date).toString()}
         </div>
         <hr />
       </div>
@@ -51,6 +51,4 @@ const BookingList = () => {
       ))}
     </div>
   );
-};
-
-export default BookingList;
+}

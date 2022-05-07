@@ -4,30 +4,25 @@ import React from 'react';
 import { useStore } from '../store/Store';
 import { addBooking } from '../store/bookTableReducer';
 
-const BookingForm = () => {
+export function BookingForm() {
   const [, dispatch] = useStore();
-  const bookingFactory = ({
-    name,
-    numberOfPeople,
-    dateTime,
-    numberOfContact,
-  }) => ({
+  const bookingFactory = ({ name, number, date, price }) => ({
     id: new Date().getUTCMilliseconds(),
     name,
-    numberOfPeople,
-    dateTime,
-    numberOfContact,
+    number,
+    price,
+    date,
   });
 
   const [form, setForm] = React.useState({
     name: '',
-    numberOfPeople: '',
-    dateTime: '',
-    numberOfContact: '',
+    number: '',
+    date: '',
+    price: '',
   });
 
   const handleInputOnChange = ({ currentTarget: { name, value } }) =>
-    setForm((state) => ({ ...state, [name]: value }));
+    setForm((prop) => ({ ...prop, [name]: value }));
 
   const handleOnBookATable = () => {
     dispatch(addBooking(bookingFactory(form)));
@@ -54,7 +49,7 @@ const BookingForm = () => {
     <div style={formStyle.container}>
       <h2>Add books</h2>
       <div style={formStyle.formControl}>
-        <label htmlFor='name'>Full name</label>
+        <label htmlFor='name'>Full Name</label>
         <input
           style={formStyle.input}
           type='text'
@@ -65,44 +60,42 @@ const BookingForm = () => {
         />
       </div>
       <div style={formStyle.formControl}>
-        <label htmlFor='numberOfContact'>phone number</label>
-        <input
-          style={formStyle.input}
-          type='text'
-          id='numberOfContact'
-          name='numberOfContact'
-          onChange={handleInputOnChange}
-          value={form.numberOfContact}
-        />
-      </div>
-      <div style={formStyle.formControl}>
-        <label htmlFor='numberOfPeople'>age</label>
+        <label htmlFor='number'>Number</label>
         <input
           style={formStyle.input}
           type='number'
-          id='numberOfPeople'
-          name='numberOfPeople'
+          id='number'
+          name='number'
           onChange={handleInputOnChange}
-          value={form.numberOfPeople}
+          value={form.number}
         />
       </div>
       <div style={formStyle.formControl}>
-        <label htmlFor='numberOfPeople'>Date</label>
+        <label htmlFor='date'>Date</label>
         <input
           style={formStyle.input}
-          type='date-local'
+          type='datetime-local'
           id='date'
           name='date'
           onChange={handleInputOnChange}
-          value={form.dateTime}
+          value={form.date}
+        />
+      </div>
+      <div style={formStyle.formControl}>
+        <label htmlFor='price'>Price</label>
+        <input
+          style={formStyle.input}
+          type='range'
+          id='price'
+          name='price'
+          onChange={handleInputOnChange}
+          value={form.price}
         />
       </div>
 
       <button type='button' onClick={handleOnBookATable}>
-        add books
+        Add your book
       </button>
     </div>
   );
-};
-
-export default BookingForm;
+}
